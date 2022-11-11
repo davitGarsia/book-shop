@@ -126,6 +126,16 @@ main.appendChild(gridContainer);
 // imgContainer.appendChild(imgs);
 //imgs.src = data.map(arr => arr.imageLink);
 
+///// Popup
+
+let popup = `
+    <div class="popup"></div>
+    `;
+gridContainer.insertAdjacentHTML('afterend', popup);
+// let popup = document.createElement('div');
+// popup.className = 'popup';
+// gridContainer.appendChild(popup);
+
 // API
 const state = {
   author: {},
@@ -177,7 +187,7 @@ const getBooks = async function () {
     imgContainer.appendChild(anotherFlex);
 
     let seeMore = document.createElement('button');
-    seeMore.className = 'btn btn-see-more';
+    seeMore.className = `btn btn-see-more btn-${i}`;
     seeMore.innerHTML = 'see more';
     anotherFlex.appendChild(seeMore);
 
@@ -191,6 +201,18 @@ const getBooks = async function () {
     addToCart.className = 'btn add-cart';
     addToCart.innerHTML = 'add to bag';
     anotherFlex.appendChild(addToCart);
+
+    // Popup
+
+    // let popup = document.createElement('div');
+    // popup.className = `pop popup-${i + 1}`;
+    // imgContainer.appendChild(popup);
+
+    seeMore.addEventListener('click', function (e) {
+      const index = e.target.className.slice(-1);
+
+      console.log(index);
+    });
   }
 
   // console.log(state.author);

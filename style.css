@@ -263,3 +263,15 @@
 .cont-10 {
   transform: translate(0, -20px);
 }
+
+/*
+Popup
+*/
+
+.popup {
+  width: 500px;
+  height: 200px;
+  background-color: #4da0b0;
+  margin: auto;
+  display: none;
+}
