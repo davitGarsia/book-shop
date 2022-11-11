@@ -1,0 +1,163 @@
+:root {
+  --main-text-color: #fff;
+  --Green: #4b9200;
+  --Black_Blue: #333b41;
+  --Orange: #f9804b;
+  --darker-orange: #e47209;
+  --Dark-orange: #e8590c;
+  --main-gray: #767474;
+  --Yellow: #ffee2e;
+  --Gray-smoky: #ababab;
+  --Orange_grad: #fed290;
+  --Light_gray: #f1f3f2;
+  --Pink_gradient: #febdab;
+  --Frosted_glass_white: #fdfdff;
+  --Rad: #d31414;
+  --bacgkround-color: #000;
+  --text-color: #333b41;
+  --btn-orange: #fe9013;
+  --orange-background: #fff4e6;
+  --gradient-primary: linear-gradient(to top left, #114357, #f29492);
+}
+
+.book-svg,
+.cart-svg {
+  width: 54px;
+  height: 54px;
+  margin-top: 15px;
+}
+
+.book-svg {
+  margin-left: 300%;
+}
+
+.header-icons {
+  display: flex;
+  gap: 85%;
+}
+
+.ulist {
+  list-style-type: none;
+}
+
+.navbar {
+  width: 100%;
+  height: 80px;
+  background-image: linear-gradient(to right, #4da0b0, #d39d38);
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  /* background-image: linear-gradient(to right bottom, #1d4350, #a43931); */
+  background-image: linear-gradient(to right, #4da0b0, #d39d38);
+}
+
+.flex-1 {
+  margin-left: 10%;
+  margin-right: 10%;
+  display: flex;
+  gap: 8%;
+  padding-top: 5%;
+}
+
+.reading {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.para {
+  font-weight: 700;
+  font-size: 96px;
+  color: rgb(229, 183, 183);
+}
+
+.subp {
+  margin-top: 50px;
+  line-height: 1.1;
+  font-size: 48px;
+  font-weight: 700;
+  z-index: 0;
+  color: rgb(10, 3, 79);
+}
+
+.every,
+.everywhere {
+  position: relative;
+}
+
+.every::after {
+  display: block;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  opacity: 0.5;
+  transform: scale(1.07, 1.05) skewX(-15deg);
+  background-image: var(--gradient-primary);
+}
+
+.everywhere::after {
+  display: block;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  opacity: 0.5;
+  transform: scale(1.07, 1.05) skewX(-15deg);
+  background-image: var(--gradient-primary);
+}
+
+.btn {
+  width: 15%;
+  height: 54px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.btn-shopping {
+  margin-top: 80px;
+  margin-left: 42%;
+  font-size: 18px;
+  background-color: #336b76;
+  transition: background-color 0.5s ease-in 100ms;
+}
+
+.btn-shopping:hover {
+  background-color: #0f5664;
+  margin-left: 42.5%;
+  margin-top: 77px;
+  box-shadow: -10px 10px #2b2323;
+}
+
+.btn-shopping:active {
+  background-color: #031b25;
+}
+
+.grid-container {
+  margin-top: 5%;
+  margin-left: 18%;
+  margin-right: 13%;
+
+  display: grid;
+  grid-template-columns: auto auto auto;
+  row-gap: 30px;
+}
+
+.book-imgs {
+  width: 70%;
+  height: 400px;
+}
