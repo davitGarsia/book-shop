@@ -114,7 +114,7 @@ fragment.appendChild(main);
 const gridContainer = document.createElement('div');
 gridContainer.className = 'grid-container';
 // document.body.appendChild(gridContainer);
-fragment.appendChild(gridContainer);
+main.appendChild(gridContainer);
 
 //Img Container
 //let imgContainer = document.createElement('div');
@@ -142,6 +142,9 @@ const getBooks = async function () {
 
   state.author = data.map(arr => arr.author);
   state.imageLink = data.map(arr => arr.imageLink);
+  state.title = data.map(arr => arr.title);
+  state.price = data.map(arr => arr.price);
+  state.description = data.map(arr => arr.description);
 
   // Displaying Data
   for (let i = 0; i < data.length; i++) {
@@ -154,12 +157,44 @@ const getBooks = async function () {
     imgContainer.appendChild(imgs);
 
     imgs.src = state.imageLink[i];
+
+    //  Adding title, author...
+    let bookTitle = document.createElement('p');
+    bookTitle.className = 'book-title';
+    bookTitle.innerHTML = state.title[i];
+
+    imgContainer.appendChild(bookTitle);
+
+    let author = document.createElement('p');
+    author.className = 'author';
+
+    author.innerHTML = state.author[i];
+
+    imgContainer.appendChild(author);
+
+    let anotherFlex = document.createElement('div');
+    anotherFlex.className = `flex-2 cont-${i + 1}`;
+    imgContainer.appendChild(anotherFlex);
+
+    let seeMore = document.createElement('button');
+    seeMore.className = 'btn btn-see-more';
+    seeMore.innerHTML = 'see more';
+    anotherFlex.appendChild(seeMore);
+
+    let price = document.createElement('span');
+    price.className = 'price';
+
+    price.innerHTML = `$ ${state.price[i]}`;
+    anotherFlex.appendChild(price);
+
+    let addToCart = document.createElement('button');
+    addToCart.className = 'btn add-cart';
+    addToCart.innerHTML = 'add to bag';
+    anotherFlex.appendChild(addToCart);
   }
 
   // console.log(state.author);
-  console.log(state.imageLink);
-
-  console.log(gridContainer);
+  //console.log(state.imageLink);
 };
 
 getBooks();
@@ -170,3 +205,5 @@ getBooks();
 
 // Inserting JS into DOM with Fragment
 document.body.appendChild(fragment);
+
+console.log(gridContainer);
