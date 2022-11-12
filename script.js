@@ -128,13 +128,59 @@ main.appendChild(gridContainer);
 
 ///// Popup
 
-let popup = `
-    <div class="popup"></div>
-    `;
-gridContainer.insertAdjacentHTML('afterend', popup);
-// let popup = document.createElement('div');
-// popup.className = 'popup';
-// gridContainer.appendChild(popup);
+// let popupbg = `
+//     <div class="popup-bg"></div>
+//      `;
+// gridContainer.insertAdjacentHTML('afterend', popupbg);
+// popupbg.classList.add('hidden');
+
+let popupbg = document.createElement('div');
+popupbg.className = 'popup-bg';
+gridContainer.appendChild(popupbg);
+popupbg.classList.add('hidden');
+
+let popup = document.createElement('div');
+popup.className = 'popup';
+gridContainer.appendChild(popup);
+popup.classList.add('hidden');
+
+let closePopup = document.createElement('button');
+closePopup.className = 'close-pop';
+closePopup.type = 'button';
+popup.appendChild(closePopup);
+
+closePopup.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="close-svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>`;
+
+//////
+
+closePopup.addEventListener('click', function (e) {
+  popup.classList.add('hidden');
+  popupbg.classList.add('hidden');
+});
+
+///////
+
+let popImg = document.createElement('img');
+popImg.className = 'pop-img';
+popup.appendChild(popImg);
+
+let popTitle = document.createElement('p');
+popTitle.className = 'pop-title';
+popup.appendChild(popTitle);
+
+let popAuthor = document.createElement('p');
+popAuthor.className = 'pop-author';
+popup.appendChild(popAuthor);
+
+let popPrice = document.createElement('p');
+popPrice.className = 'pop-price';
+popup.appendChild(popPrice);
+
+let popDescription = document.createElement('p');
+popDescription.className = 'pop-desc';
+popup.appendChild(popDescription);
 
 // API
 const state = {
@@ -210,6 +256,14 @@ const getBooks = async function () {
 
     seeMore.addEventListener('click', function (e) {
       const index = e.target.className.slice(-1);
+      popupbg.classList.remove('hidden');
+      popup.classList.remove('hidden');
+
+      popImg.src = state.imageLink[index];
+      popAuthor.innerHTML = state.author[index];
+      popTitle.innerHTML = state.title[index];
+      popPrice.innerHTML = `$ ${state.price[index]}`;
+      popDescription.innerHTML = state.description[index];
 
       console.log(index);
     });
