@@ -230,7 +230,7 @@ const state = {
 
 // Getting JSON
 const getBooks = async function () {
-  const res = await fetch('../../books.json');
+  const res = await fetch('books.json');
   const data = await res.json();
 
   state.author = data.map(arr => arr.author);
