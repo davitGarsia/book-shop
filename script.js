@@ -31,8 +31,23 @@ ulist.innerHTML = `
             </svg>
           </a>
         </li>
-        <li>
-          <a href="#">
+    </div>
+`;
+
+let shoppingCart = document.createElement('img');
+shoppingCart.src = 'images/shoppin_cart.png';
+shoppingCart.className = 'shopping-cart';
+shoppingCart.addEventListener('ondrop', function (ev) {
+  drop(ev);
+});
+shoppingCart.addEventListener('ondragover', function (ev) {
+  allowDrop(ev);
+});
+
+ulist.appendChild(shoppingCart);
+
+{
+  /* <li>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -40,6 +55,8 @@ ulist.innerHTML = `
               stroke-width="1.5"
               stroke="rgb(10, 3, 79)"
               class="cart-svg"
+
+        id="cart-img"
             >
               <path
                 stroke-linecap="round"
@@ -47,25 +64,34 @@ ulist.innerHTML = `
                 d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
               />
             </svg>
-          </a>
-        </li>
-    </div>
-`;
+
+        </li> */
+}
+
+// let cart = document.createElement('svg');
+// // cart.className = 'cart-svg';
+// let listItem = document.createElement('li');
+// listItem.className = 'list-item';
+// ulist.appendChild(listItem);
+// listItem.appendChild(cart);
+// listItem.innerHTML = `
+// xmlns="http://www.w3.org/2000/svg"
+//               fill="none"
+//               viewBox="0 0 24 24"
+//               stroke-width="1.5"
+//               stroke="rgb(10, 3, 79)"
+//               class="cart-svg"
+
+//         id="cart-img"
+//             >
+//               <path
+//                 stroke-linecap="round"
+//                 stroke-linejoin="round"
+//                 d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+//               />
+// `;
 
 fragment.appendChild(navbar);
-
-// const main = document.createElement('main');
-// main.className = 'main';
-// document.body.appendChild(main);
-
-// let mainContainer = document.createElement('div');
-// mainContainer.className = 'container';
-
-// main.appendChild(mainContainer);
-
-// let flexcontainer = document.createElement('div');
-// flexcontainer.className = 'flex-1';
-// mainContainer.appendChild(flexcontainer);
 
 const heroSection = document.createElement('section');
 heroSection.className = 'section-hero';
@@ -104,9 +130,25 @@ fragment.appendChild(heroSection); // trial
 // Main Section
 
 const main = document.createElement('main');
+
 main.className = 'section-main';
 // document.body.appendChild(main);
 fragment.appendChild(main);
+
+const initialCoords = main.getBoundingClientRect();
+window.addEventListener('scroll', function (e) {
+  if (this.window.scrollY > initialCoords.top) {
+    navbar.classList.add('sticky');
+  } else {
+    navbar.classList.remove('sticky');
+  }
+});
+
+////
+
+btn.addEventListener('click', function () {
+  main.scrollIntoView({ behavior: 'smooth' });
+});
 
 ///////////////
 
@@ -115,24 +157,6 @@ const gridContainer = document.createElement('div');
 gridContainer.className = 'grid-container';
 // document.body.appendChild(gridContainer);
 main.appendChild(gridContainer);
-
-//Img Container
-//let imgContainer = document.createElement('div');
-// imgContainer.className = 'img-container';
-
-// imgs
-//let imgs = document.createElement('img');
-// imgs.className = 'book-imgs';
-// imgContainer.appendChild(imgs);
-//imgs.src = data.map(arr => arr.imageLink);
-
-///// Popup
-
-// let popupbg = `
-//     <div class="popup-bg"></div>
-//      `;
-// gridContainer.insertAdjacentHTML('afterend', popupbg);
-// popupbg.classList.add('hidden');
 
 let popupbg = document.createElement('div');
 popupbg.className = 'popup-bg';
@@ -182,6 +206,19 @@ let popDescription = document.createElement('p');
 popDescription.className = 'pop-desc';
 popup.appendChild(popDescription);
 
+///////////////////////
+// function allowDrop(ev) {
+//   ev.preventDefault();
+// }
+// /////// Drag events
+
+// shoppingCart.addEventListener('dragover', function (ev) {
+//   allowDrop(ev);
+// });
+//////
+
+/////////////////////
+
 // API
 const state = {
   author: {},
@@ -193,7 +230,7 @@ const state = {
 
 // Getting JSON
 const getBooks = async function () {
-  const res = await fetch('books.json');
+  const res = await fetch('../../books.json');
   const data = await res.json();
 
   state.author = data.map(arr => arr.author);
@@ -210,6 +247,10 @@ const getBooks = async function () {
 
     let imgs = document.createElement('img');
     imgs.className = 'book-imgs';
+    imgs.id = `${state.imageLink[i]}`;
+    imgs.draggable = true;
+    imgs.ondragstart = 'drag(event)';
+
     imgContainer.appendChild(imgs);
 
     imgs.src = state.imageLink[i];
@@ -248,7 +289,24 @@ const getBooks = async function () {
     addToCart.innerHTML = 'add to bag';
     anotherFlex.appendChild(addToCart);
 
-    // Popup
+    // DRAG ////////////////////////////////////////////////
+
+    // function drag(ev) {
+    //   ev.dataTransfer.setData('text', ev.target.id);
+    // }
+    // shoppingCart.addEventListener('drop', function (ev) {
+    //   drop(ev);
+    // });
+
+    // function drop(ev) {
+    //   ev.preventDefault();
+    //   let data = ev.dataTransfer.getData('text');
+    //   ev.target.appendChild(document.getElementById(data));
+    // }
+
+    // imgs.addEventListener('dragstart', function (ev) {
+    //   drag(ev);
+    // });
 
     // let popup = document.createElement('div');
     // popup.className = `pop popup-${i + 1}`;
@@ -264,14 +322,17 @@ const getBooks = async function () {
       popTitle.innerHTML = state.title[index];
       popPrice.innerHTML = `$ ${state.price[index]}`;
       popDescription.innerHTML = state.description[index];
-
-      console.log(index);
     });
   }
 
   // console.log(state.author);
   //console.log(state.imageLink);
 };
+
+// function addToCartListener() {
+//   let idEl = this.parentElement.parentElement.id;
+//   addToCart(idEl);
+// }
 
 getBooks();
 
@@ -281,5 +342,3 @@ getBooks();
 
 // Inserting JS into DOM with Fragment
 document.body.appendChild(fragment);
-
-console.log(gridContainer);
